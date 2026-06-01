@@ -1,26 +1,77 @@
-@import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    /* Surfaces */
+    --canvas:     #09090b;
+    --surface:    #18181b;
+    --surface-40: rgba(24, 24, 27, 0.40);
+    --surface-20: rgba(24, 24, 27, 0.20);
+    --surface-hi: #1f1f23;
+
+    /* Borders */
+    --border:    #27272a;
+    --border-60: rgba(39, 39, 42, 0.60);
+    --border-hi: #3f3f46;
+
+    /* Text */
+    --text:       #f4f4f5;
+    --text-200:   #e4e4e7;
+    --text-muted: #a1a1aa;
+    --text-dim:   #71717a;
+
+    /* Brand & Status */
+    --accent:      #4f46e5;
+    --accent-hi:   #6366f1;
+    --accent-ring: #6366f1;
+
+    --st-todo:     #a1a1aa;
+    --st-progress: #38bdf8;
+    --st-done:     #34d399;
+
+    /* Geometry */
+    --r-sm: 4px;
+    --r-md: 6px;
+    --r-lg: 8px;
+    --r-xl: 12px;
+
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    background: var(--canvas);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Animations for drawer and overlay */
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes drawerIn  { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+.overlay-enter { animation: overlayIn 180ms ease-out; }
+.drawer-enter  { animation: drawerIn 220ms cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Card hover states */
+.issue-card {
+    transition: border-color 150ms ease, background 150ms ease;
+}
+.issue-card:hover {
+    border-color: var(--border-hi);
+    background: var(--surface-hi);
+}
+.issue-card.dragging {
+    opacity: 0.5;
+    transform: rotate(1deg);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Subtle custom scrollbar */
+.custom-scrollbar { scrollbar-width: thin; scrollbar-color: #3f3f46 transparent; }
+.custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #2e2e33;
+    border-radius: 99px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
 }
